@@ -317,7 +317,9 @@ def simulate_result(selection_id):
     db.session.commit()
     return redirect(url_for('index'))
 
+# --- DATABASE INITIALIZATION FOR GUNICORN / PRODUCTION ---
+with app.app_context():
+    db.create_all()
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True, port=5000)
